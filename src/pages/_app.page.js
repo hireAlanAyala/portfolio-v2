@@ -27,7 +27,7 @@ __  __  __
 const App = ({ Component, pageProps }) => {
   const [storedTheme] = useLocalStorage('theme', 'dark');
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { route, events, asPath, isFallback } = useRouter();
+  const { route, events, asPath } = useRouter();
   const canonicalRoute = route === '/' ? '' : `${asPath}`;
   useFoucFix();
 
@@ -59,8 +59,6 @@ const App = ({ Component, pageProps }) => {
   useEffect(() => {
     dispatch({ type: 'setTheme', value: storedTheme || 'dark' });
   }, [storedTheme]);
-
-  if (isFallback) return <div>Sorry something went wrong</div>;
 
   return (
     <AppContext.Provider value={{ ...state, dispatch }}>
